@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NicoTV - Transmisión de Fútbol en Vivo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: white;
+        }
+
+        header {
+            background-color: #ff6600; /* Naranja */
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .titulo {
+            display: inline-block;
+            margin: 0;
+            font-size: 24px;
+            vertical-align: middle;
+            color: white;
+        }
+
+        nav {
+            background-color: #ff6600; /* Naranja */
+            padding: 10px;
+            margin-top: 80px; /* Espacio para el header fijo */
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+        }
+
+        nav ul li a:hover {
+            color: #ffd700;
+        }
+
+        #calendario {
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        #calendario table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #1f1f1f;
+            color: white;
+        }
+
+        #calendario th, #calendario td {
+            padding: 10px;
+            border-bottom: 1px solid #444;
+            text-align: left;
+        }
+
+        #canales {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .canal {
+            background-color: #1f1f1f;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 200px;
+        }
+
+        .canal img {
+            width: 100px;
+            margin-bottom: 10px;
+        }
+
+        .canal a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+        }
+
+        .canal a:hover {
+            color: #ffd700;
+        }
+
+        footer {
+            background-color: #ff6600;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .highlight {
+            text-decoration: underline;
+            text-decoration-color: #ffd700; /* Naranja claro */
+        }
+        /* Dropdown Button */
+.dropbtn {
+    background-color: #ff6600; /* Naranja */
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1f1f1f;
+    min-width: 160px;
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #444;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #ff6600;
+}
+    </style>
+    <script>
+        function searchChannel() {
+            var input = document.getElementById('searchInput').value.toLowerCase();
+            var channels = document.getElementsByClassName('canal');
+            var found = false;
+
+            for (var i = 0; i < channels.length; i++) {
+                var channel = channels[i];
+                var link = channel.getElementsByTagName('a')[0];
+                var channelName = link.innerText.toLowerCase();
+
+                if (channelName.includes(input)) {
+                    link.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    link.classList.add('highlight');
+                    found = true;
+                    break;
+                } else {
+                    link.classList.remove('highlight');
+                }
+            }
+
+            if (!found) {
+                alert('Canal no encontrado');
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Logo NicoTV">
+        </div>
+        <div class="titulo">
+            <h1>NicoTV</h1>
+        </div>
+        <div class="buscador">
+            <input type="text" id="searchInput" placeholder="Buscar canal...">
+            <button onclick="searchChannel()">Buscar</button>
+            <div class="dropdown-container">
+                <!-- Dropdown menu for Support -->
+                <div class="dropdown">
+                    <button class="dropbtn">Soporte</button>
+                    <div class="dropdown-content">
+                        <a href="https://wa.me/qr/DDBYVWLG6XDFE1">Contacto</a>
+                    </div>
+                </div>
+            </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#canales">Canales de Fútbol</a></li>
+            <li><a href="#calendario">Calendario de Eventos</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="calendario">
+            <h2>Calendario de Eventos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Partido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>20 de junio, 2024</td>
+                        <td>Copa América Fase de grupos. Jornada 1 de 3<br>Argentina vs. Canadá<br>9:00 p.m</td>
+                    </tr>
+                    <tr>
+                        <td>25 de junio, 2024</td>
+                        <td>Copa América Fase de grupos. Jornada 2 de 3<br>Chile vs. Argentina<br>10:00 p.m</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="canales">
+            <h2>Canales en Vivo</h2>
+            <div class="canal">
+                <a href="https://tv-libre.com/en-vivo/telefe/" target="_blank">
+                    <img src="Telefe_2018.png" alt="Telefe">
+                    <p>Telefe - Transmisión en vivo</p>
+                </a>
+            </div>
+            <div class="canal">
+                <a href="https://tv-libre.com/en-vivo/tyc-sports/" target="_blank">
+                    <img src="TYC Sports.png" alt="TYC Sports">
+                    <p>TYC Sports - Transmisión en vivo</p>
+                </a>
+            </div>
+            <div class="canal">
+                <a href="https://tv-libre.com/en-vivo/el-trece/" target="_blank">
+                    <img src="el trece.png" alt="El Trece">
+                    <p>El Trece - Transmisión en vivo</p>
+                </a>
+            </div>
+            <div class="canal">
+                <a href="https://tv-libre.com/en-vivo/tn/" target="_blank">
+                    <img src="TN_todo_noticias_logo.svg.webp" alt="TN">
+                    <p>TN - Transmisión en vivo</p>
+                </a>
+            </div>
+            <div class="canal">
+                <a href="https://tv-libre.com/en-vivo/a24/" target="_blank">
+                    <img src="a24.webp" alt="A24">
+                    <p>A24 - Transmisión en vivo</p>
+                </a>
+            </div>
+            <div class="canal">
+                <a href="https://tv-libre.com/en-vivo/tnt-sports/" target="_blank">
+                    <img src="TNT_Sports_2021_logo.svg.png" alt="TNT Sports">
+                    <p>TNT Sports - Transmisión en vivo</p>
+                </a>
+            </div>
+            <div class="canal">
+                <a href="https://tv-libre.com/en-vivo/espn-premium/" target="_blank">
+                    <img src="ESPN_Premium_logo.svg.png" alt="ESPN Premium">
+                    <p>ESPN Premium - Transmisión en vivo</p>
+                </a>
+            </div>
+            <div class="canal">
+                <a href="https://canal40hd.com.ar/#1" target="_blank">
+                    <img src="ca40.png" alt="Canal 40 HD">
+                    <p>Canal 40 HD - Transmisión en vivo</p>
+                </a>
+            </div>
+            <div class="canal">
+                <a href="https://www.cablevisionhd.com/tnt-en-vivo.html" target="_blank">
+                    <img src="tnt.webp" alt="TNT">
+                    <p>TNT - Transmisión en vivo</p>
+                </a>
+            </div>
+            <div class="canal">
+                <a href="https://www.cablevisionhd.com/space-en-vivo.html" target="_blank">
+                    <img src="SpaceLogo.svg.png" alt="Space">
+                    <p>Space - Transmisión en vivo</p>
+                </a>
+            </div>
+        </div>
+        <div class="canal">
+            <a href="https://www.cablevisionhd.com/television-publica-en-vivo.html" target="_blank">
+                <img src="TVP_-_Televisión_Pública_(2021).svg.webp" alt="Space">
+                <p>Space - Transmisión en vivo</p>
+            </a>
+        </div>
+        </section>
+    </main>
+    <footer>
+        <!-- Aquí puedes agregar información adicional o enlaces importantes -->
+        © 2024 NicoTV. Todos los derechos reservados.
+    </footer>
+    <script>
+        // Obtener el botón de menú desplegable
+        var dropdownBtn = document.querySelector('.dropbtn');
+        
+        // Agregar un evento 'click' al botón
+        dropdownBtn.addEventListener('click', function() {
+            // Obtener el menú desplegable
+            var dropdownContent = this.nextElementSibling;
+            
+            // Alternar la visibilidad del menú desplegable
+            if (dropdownContent.style.display === 'block') {
+                dropdownContent.style.display = 'none';
+            } else {
+                dropdownContent.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
